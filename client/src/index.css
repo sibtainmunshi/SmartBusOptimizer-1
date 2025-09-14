@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(210, 20%, 98%);
+  --foreground: hsl(220, 8.9%, 13.1%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(220, 8.9%, 13.1%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(220, 8.9%, 13.1%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(174, 56%, 47%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --muted: hsl(210, 20%, 95%);
+  --muted-foreground: hsl(220, 8.9%, 46.1%);
+  --accent: hsl(104, 45%, 58%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --border: hsl(214.3, 31.8%, 91.4%);
+  --input: hsl(214.3, 31.8%, 91.4%);
+  --ring: hsl(207, 90%, 54%);
+  --chart-1: hsl(207, 90%, 54%);
+  --chart-2: hsl(174, 56%, 47%);
+  --chart-3: hsl(104, 45%, 58%);
+  --chart-4: hsl(42, 92%, 56%);
+  --chart-5: hsl(341, 75%, 51%);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: hsl(220, 8.9%, 13.1%);
+  --foreground: hsl(210, 20%, 98%);
+  --card: hsl(220, 8.9%, 15%);
+  --card-foreground: hsl(210, 20%, 98%);
+  --popover: hsl(220, 8.9%, 15%);
+  --popover-foreground: hsl(210, 20%, 98%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(174, 56%, 47%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --muted: hsl(220, 8.9%, 18%);
+  --muted-foreground: hsl(220, 8.9%, 46.1%);
+  --accent: hsl(104, 45%, 58%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --border: hsl(220, 8.9%, 18%);
+  --input: hsl(220, 8.9%, 18%);
+  --ring: hsl(207, 90%, 54%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold;
+  }
+}
+
+@layer components {
+  .glass-effect {
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .dark .glass-effect {
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .seat {
+    @apply w-8 h-8 border-2 border-gray-300 rounded cursor-pointer transition-all duration-200;
+  }
+
+  .seat.available {
+    @apply bg-green-100 border-green-500;
+  }
+
+  .seat.occupied {
+    @apply bg-red-100 border-red-500 cursor-not-allowed;
+  }
+
+  .seat.selected {
+    @apply bg-primary border-primary;
+  }
+
+  .notification {
+    @apply fixed top-5 right-5 z-50 transform translate-x-full transition-transform duration-300 ease-in-out;
+  }
+
+  .notification.show {
+    @apply translate-x-0;
+  }
+
+  .bus-marker {
+    @apply bg-primary rounded-full w-3 h-3 animate-pulse;
+  }
+
+  .nav-link {
+    @apply px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200;
+  }
+
+  .nav-link.active {
+    @apply text-primary;
+    background-color: hsl(var(--primary) / 0.1);
+  }
+
+  .nav-link:not(.active) {
+    @apply text-muted-foreground hover:text-foreground;
+  }
+}
+
+@layer utilities {
+  .hero-bg {
+    background-image: linear-gradient(to bottom right, hsl(207, 90%, 54%), hsl(174, 56%, 47%)),
+                      url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&h=800');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+  }
+
+  .chart-container {
+    @apply relative h-64 w-full;
+  }
+}
+
+/* Leaflet map overrides */
+.leaflet-container {
+  @apply rounded-lg;
+}
+
+.leaflet-popup-content-wrapper {
+  @apply bg-card text-card-foreground border border-border rounded-lg;
+}
+
+.leaflet-popup-tip {
+  @apply bg-card;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-muted;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-full;
+  background-color: hsl(var(--muted-foreground) / 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--muted-foreground) / 0.3);
+}
